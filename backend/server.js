@@ -16,6 +16,40 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://shop-me-mern-e-commerce.vercel.app',
+];
+
+const isAllowedOrigin = (origin) => {
+  return (
+    allowedOrigins.includes(origin) ||
+    /^https:\/\/shop-me-mern-e-commerce-[a-z0-9-]+-ak-amit-singh\.vercel\.app$/.test(
+      origin
+    )
+  );
+};
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+
+  if (isAllowedOrigin(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header(
+      'Access-Control-Allow-Methods',
+      'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+    );
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  }
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
