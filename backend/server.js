@@ -18,8 +18,8 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://shop-me-mern-e-commerce.vercel.app/',
-  'https://shop-me-mern-e-commerce-kttt66rbg-ak-amit-singh.vercel.app/',
+  'https://shop-me-mern-e-commerce.vercel.app',
+  'https://shop-me-mern-e-commerce-i3gxfqzg0-ak-amit-singh.vercel.app',
 ];
 
 app.use((req, res, next) => {
