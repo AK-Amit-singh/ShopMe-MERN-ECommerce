@@ -21,10 +21,19 @@ const allowedOrigins = [
   'https://shop-me-mern-e-commerce.vercel.app',
 ];
 
+const isAllowedOrigin = (origin) => {
+  return (
+    allowedOrigins.includes(origin) ||
+    /^https:\/\/shop-me-mern-e-commerce-[a-z0-9-]+-ak-amit-singh\.vercel\.app$/.test(
+      origin
+    )
+  );
+};
+
 app.use((req, res, next) => {
   const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
+  if (isAllowedOrigin(origin)) {
     res.header('Access-Control-Allow-Origin', origin);
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header(
